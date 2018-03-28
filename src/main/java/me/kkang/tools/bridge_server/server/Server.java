@@ -1,4 +1,4 @@
-package me.kkang.tools.bridge_server.socket;
+package me.kkang.tools.bridge_server.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.net.ServerSocket;
+import java.net.Socket;
 
 @Component
 public class Server {
@@ -15,7 +16,7 @@ public class Server {
 
     private static ServerSocket serverSocket;
 
-    @Value("${socket.port:12345}")
+    @Value("${socket.server.port}")
     private int port;
     @Autowired
     private HandlerManager handlerManager;
@@ -29,7 +30,8 @@ public class Server {
 
                     logger.info("socket监听启动在端口：{}", port);
                     while (true) {
-                        handlerManager.handleClient(serverSocket.accept());
+                        Socket client = serverSocket.accept();
+                        handlerManager.handleClient(client);
                     }
                 } catch (Exception e) {
                     logger.error("服务器异常: " + e.getMessage(), e);
@@ -37,6 +39,5 @@ public class Server {
             }
         }).start();
     }
-
 
 }

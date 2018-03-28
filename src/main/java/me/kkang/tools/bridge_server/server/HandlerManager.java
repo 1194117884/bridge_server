@@ -1,4 +1,4 @@
-package me.kkang.tools.bridge_server.socket;
+package me.kkang.tools.bridge_server.server;
 
 import me.kkang.tools.bridge_server.client.ClientHandler;
 import me.kkang.tools.bridge_server.worker.ThreadWorkerPool;

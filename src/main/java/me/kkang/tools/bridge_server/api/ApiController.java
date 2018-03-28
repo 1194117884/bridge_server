@@ -10,11 +10,13 @@ public class ApiController {
 
     @GetMapping("/{threadId}")
     public Object transferGet(@PathVariable String threadId, HttpServletRequest request) {
+        //TODO:
         return request.getQueryString();
     }
 
     @PostMapping("/{threadId}")
     public Object transferPost(@PathVariable String threadId, HttpServletRequest request) {
+        //TODO:
         return JSONObject.toJSONString(request);
     }
 

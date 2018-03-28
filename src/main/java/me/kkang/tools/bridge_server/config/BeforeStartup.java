@@ -1,6 +1,6 @@
 package me.kkang.tools.bridge_server.config;
 
-import me.kkang.tools.bridge_server.socket.Server;
+import me.kkang.tools.bridge_server.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

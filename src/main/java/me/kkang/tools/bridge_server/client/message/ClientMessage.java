@@ -1,4 +1,4 @@
-package me.kkang.tools.bridge_server.client;
+package me.kkang.tools.bridge_server.client.message;
 
 /**
  * client 发向 server 交互的信息封装

@@ -1,9 +1,11 @@
-package me.kkang.tools.bridge_server.socket;
+package me.kkang.tools.bridge_server.client;
 
 import com.alibaba.fastjson.JSONObject;
+import me.kkang.tools.bridge_server.client.message.ClientMessage;
+import me.kkang.tools.bridge_server.client.message.handler.ClientMessageHandler;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
@@ -16,16 +18,15 @@ public class ClientHandler implements Runnable {
 
     public void run() {
         try {
-            while (true){
+            while (true) {
                 // 读取客户端数据
-                DataInputStream input = new DataInputStream(socket.getInputStream());
-                String clientInputStr = input.readUTF();//这里要注意和客户端输出流的写方法对应,否则会抛 EOFException
-                ClientMessage clientMessage = JSONObject.parseObject(clientInputStr, ClientMessage.class);
-                ClientMessageHandler.handler(clientMessage).handle(socket);
+                BufferedReader input =
+                        new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String answer = input.readLine();
+                System.out.println(answer);
+                ClientMessage clientMessage = JSONObject.parseObject(answer, ClientMessage.class);
 
-                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                out.writeUTF(clientInputStr);
-                out.close();
+                ClientMessageHandler.handler(clientMessage).handle(socket);
                 input.close();
             }
         } catch (Exception e) {
