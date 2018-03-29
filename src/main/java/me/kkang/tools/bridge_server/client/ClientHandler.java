@@ -18,16 +18,15 @@ public class ClientHandler implements Runnable {
 
     public void run() {
         try {
-            while (true) {
+            while (true){
                 // 读取客户端数据
                 BufferedReader input =
                         new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String answer = input.readLine();
-                System.out.println(answer);
-                ClientMessage clientMessage = JSONObject.parseObject(answer, ClientMessage.class);
-
-                ClientMessageHandler.handler(clientMessage).handle(socket);
                 input.close();
+                //应答结果
+                ClientMessage clientMessage = JSONObject.parseObject(answer, ClientMessage.class);
+                ClientMessageHandler.handler(clientMessage).handle(socket);
             }
         } catch (Exception e) {
             System.out.println("服务器 run 异常: " + e.getMessage());

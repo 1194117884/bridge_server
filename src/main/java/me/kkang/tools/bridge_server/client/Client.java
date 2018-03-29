@@ -13,6 +13,20 @@ public class Client {
         Socket socket = null;
         try {
             socket = new Socket(IP_ADDR, PORT);
+            try {
+                PrintWriter out =
+                        new PrintWriter(socket.getOutputStream(), true);
+                //向服务器端发送数据
+                out.println("{\"action\":\"register\",\"clientName\":\"bridge_server\"}");
+
+                BufferedReader input =
+                        new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                System.out.println(input.readLine());
+
+            } catch (Exception e) {
+                System.out.println("客户端异常:" + e.getMessage());
+            } finally {
+            }
         } catch (IOException e) {
 
         } finally {
@@ -23,22 +37,6 @@ public class Client {
                     socket = null;
                     System.out.println("客户端 finally 异常:" + e.getMessage());
                 }
-            }
-        }
-
-        int i = 0;
-        while (i < 10) {
-            try {
-                i++;
-                PrintWriter out =
-                        new PrintWriter(socket.getOutputStream(), true);
-                //向服务器端发送数据
-                out.println("asdfasdf");
-                out.flush();
-                out.close();
-            } catch (Exception e) {
-                System.out.println("客户端异常:" + e.getMessage());
-            } finally {
             }
         }
     }

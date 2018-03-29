@@ -10,12 +10,24 @@ public class ClientRegisterMessage extends ClientMessageHandler {
 
     @Override
     public void handle(Socket socket) {
+        DataOutputStream out = null;
         try {
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+            
+
             out.writeUTF("OK");
-            out.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    out = null;
+                }
+            }
         }
 
     }
